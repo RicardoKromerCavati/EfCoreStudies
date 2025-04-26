@@ -1,8 +1,10 @@
 ﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage.Json;
+using Microsoft.Extensions.Configuration;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure
 {
 	public class ApplicationDbContext : DbContext
 	{
@@ -14,7 +16,12 @@ namespace Infrastructure.Repositories
 
 		public ApplicationDbContext()
 		{
-			
+			IConfiguration configuration = new ConfigurationBuilder()
+				.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+				.AddJsonFile("appsettings.json")
+				.Build();
+
+			_connectionString = configuration.GetConnectionString("ConnectionString")!;
 		}
 
 		public ApplicationDbContext(string connectionString)
@@ -29,7 +36,8 @@ namespace Infrastructure.Repositories
 				return;
 			}
 
-			optionsBuilder.UseSqlServer(connectionString: _connectionString);
+			optionsBuilder
+				.UseSqlServer(connectionString: _connectionString);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
