@@ -13,7 +13,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
         entity.ToTable("OrderTable");
         entity.HasKey(property => property.Id);
-        entity.Property(propertyName => propertyName.Id).HasColumnType(IntDatabaseType).ValueGeneratedNever().UseIdentityColumn();;
+        entity.Property(propertyName => propertyName.Id).HasColumnType(IntDatabaseType).UseIdentityColumn();;
         entity.Property(propertyName => propertyName.CreationDate).HasColumnName("CreationDate").HasColumnType(DateTimeDatabaseType).IsRequired();
 
         //Fk for other tables

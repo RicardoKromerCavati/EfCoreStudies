@@ -15,7 +15,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         entity.ToTable("CustomerTable");
         entity.HasKey(property => property.Id);
 				
-        entity.Property(propertyName => propertyName.Id).HasColumnType(IntDatabaseType).ValueGeneratedNever().UseIdentityColumn();;
+        entity.Property(propertyName => propertyName.Id).HasColumnType(IntDatabaseType).UseIdentityColumn();;
         //entity.Property(propertyName => propertyName.Id).ValueGeneratedOnAdd();
         entity.Property(propertyName => propertyName.CreationDate).HasColumnName("CreationDate").HasColumnType(DateTimeDatabaseType).IsRequired();
         entity.Property(propertyName => propertyName.Name).HasColumnType($"{VarcharDatabaseType}(100)").IsRequired();
