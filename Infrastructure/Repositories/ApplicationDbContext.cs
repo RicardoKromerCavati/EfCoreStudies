@@ -1,13 +1,26 @@
 ﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace Infrastructure.Repositories
 {
-	public class ApplicationDbContext(string connectionString) : DbContext
+	public class ApplicationDbContext : DbContext
 	{
 		public DbSet<Customer> Customers { get; set; }
 		public DbSet<Book> Books { get; set; }
 		public DbSet<Order> Orders { get; set; }
+
+		private readonly string _connectionString;
+
+		public ApplicationDbContext()
+		{
+			
+		}
+
+		public ApplicationDbContext(string connectionString)
+		{
+			_connectionString = connectionString;
+		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -16,7 +29,7 @@ namespace Infrastructure.Repositories
 				return;
 			}
 
-			optionsBuilder.UseSqlServer(connectionString: connectionString);
+			optionsBuilder.UseSqlServer(connectionString: _connectionString);
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
