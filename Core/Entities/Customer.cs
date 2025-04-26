@@ -3,7 +3,7 @@
 namespace Core.Entities
 {
 	// [Table("CustomerTable")]
-	public class Customer : IDatabaseEntity
+	public class Customer : BaseDatabaseEntity
     {
         // [Required]
         // [Column("Name")]
@@ -12,7 +12,5 @@ namespace Core.Entities
         public DateTime BirthDate { get; set; }
 
 		public ICollection<Order> Orders { get; set; }
-		public int Id { get; set; }
-		public DateTime CreationDate { get; set; }
 	}
 }

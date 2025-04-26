@@ -1,6 +1,6 @@
 ﻿namespace Core.Entities.Contracts
 {
-	public interface IDatabaseEntity
+	public class BaseDatabaseEntity
 	{
 		// [Key]
 		public int Id { get; set; }
