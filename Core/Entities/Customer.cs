@@ -1,6 +1,4 @@
-﻿using Core.Entities.Contracts;
-
-namespace Core.Entities
+﻿namespace Core.Entities
 {
 	// [Table("CustomerTable")]
 	public class Customer : BaseDatabaseEntity
@@ -11,6 +9,6 @@ namespace Core.Entities
 		public required string Cpf { get; set; }
         public DateTime BirthDate { get; set; }
 
-		public ICollection<Order> Orders { get; set; }
+		public ICollection<Order> Orders { get; set; } = [];
 	}
 }

@@ -1,7 +1,4 @@
-﻿
-using Core.Entities.Contracts;
-
-namespace Core.Entities
+﻿namespace Core.Entities
 {
 	public class Order : BaseDatabaseEntity
 	{		
