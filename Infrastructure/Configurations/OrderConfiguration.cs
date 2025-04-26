@@ -22,14 +22,14 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 				
         entity
             .HasOne(propertyName => propertyName.Customer)
-            .WithMany()
+            .WithMany(c => c.Orders)
             .HasPrincipalKey(customer => customer.Id)
             //.HasConstraintName("example")
             ;
 				
         entity
             .HasOne(propertyName => propertyName.Book)
-            .WithMany()
+            .WithMany(b => b.Orders)
             .HasPrincipalKey(book => book.Id);    
     }
     

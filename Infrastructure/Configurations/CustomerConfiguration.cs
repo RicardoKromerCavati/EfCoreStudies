@@ -20,5 +20,6 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         entity.Property(propertyName => propertyName.CreationDate).HasColumnName("CreationDate").HasColumnType(DateTimeDatabaseType).IsRequired();
         entity.Property(propertyName => propertyName.Name).HasColumnType($"{VarcharDatabaseType}(100)").IsRequired();
         entity.Property(propertyName => propertyName.BirthDate).HasColumnType(DateTimeDatabaseType);
+        entity.Property(propertyName => propertyName.Cpf).HasColumnType($"{VarcharDatabaseType}(11)").IsRequired();
     }
 }
