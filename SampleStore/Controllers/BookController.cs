@@ -21,14 +21,27 @@ namespace SampleStoreApi.Controllers
 		{
 			try
 			{
+				var booksDto = new List<BookDto>();
+
 				var books = _bookRepository.SelectAll();
 
-				if (books is null || books.Count <= 0)
+				foreach (var book in books)
 				{
-					return NotFound();
+					booksDto.Add(new BookDto
+					{
+						Id = book.Id,
+						Name = book.Name,
+						Publisher = book.Publisher,
+						CreationDate = book.CreationDate,
+						Orders = book.Orders.Select(o => new Order()
+						{
+							CustomerId = o.CustomerId,
+							BookId = o.BookId
+						}).ToList()
+					});
 				}
 
-				return Ok(books);
+				return Ok(booksDto);
 			}
 			catch (Exception ex)
 			{
@@ -120,6 +133,42 @@ namespace SampleStoreApi.Controllers
 			catch (Exception ex)
 			{
 				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPost("CreateManyBooks")]
+		public IActionResult CreateManyBooks()
+		{
+			try
+			{
+				try
+				{
+					var livros = new List<Book>()
+					{
+						new() { Name = "Book 1", Publisher = "Publisher" },
+						new() { Name = "Book 2", Publisher = "Publisher" },
+						new() { Name = "Book 3", Publisher = "Publisher" },
+						new() { Name = "Book 4", Publisher = "Publisher" },
+						new() { Name = "Book 5", Publisher = "Publisher" },
+						new() { Name = "Book 6", Publisher = "Publisher" },
+						new() { Name = "Book 7", Publisher = "Publisher" },
+						new() { Name = "Book 8", Publisher = "Publisher" },
+						new() { Name = "Book 9", Publisher = "Publisher" },
+						new() { Name = "Book 10", Publisher = "Publisher" },
+					};
+
+					_bookRepository.InsertMany(livros);
+
+					return Ok();
+				}
+				catch (Exception e)
+				{
+					return BadRequest(e.Message);
+				}
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
 			}
 		}
 	}

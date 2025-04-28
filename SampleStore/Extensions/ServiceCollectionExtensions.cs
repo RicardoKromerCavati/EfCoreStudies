@@ -38,7 +38,8 @@ namespace SampleStoreApi.Extensions
 			{
 				const string connectionStringName = "ConnectionString";
 				options
-				.UseSqlServer(configuration.GetConnectionString(connectionStringName));
+				.UseSqlServer(configuration.GetConnectionString(connectionStringName))
+				.UseLazyLoadingProxies();
 			}, contextLifetime: ServiceLifetime.Scoped);
 		}
 	}

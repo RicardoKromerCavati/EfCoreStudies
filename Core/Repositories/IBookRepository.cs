@@ -2,4 +2,7 @@
 
 namespace Core.Repositories;
 
-public interface IBookRepository : IRepository<Book> { }
+public interface IBookRepository : IRepository<Book>
+{
+	void InsertMany(IEnumerable<Book> books);
+}

@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Inputs;
 using Core.Models;
 using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace Infrastructure.Repositories
 		{
 		}
 
-		public EntityResult<Customer> GetOrdersInLastSixMonths(int id)
+		public EntityResult<CustomerDto> GetOrdersInLastSixMonths(int id)
 		{
 			//_dbSet
 			//	.Include(customer => customer.Orders)
@@ -20,26 +21,31 @@ namespace Infrastructure.Repositories
 
 			var customer =
 				_applicationDbContext.Customers
-				.Include(customer => customer.Orders)
-				.ThenInclude(order => order.Book)
 				.FirstOrDefault(customer => customer.Id == id);
 
 			if (customer is null)
 			{
-				return EntityResult<Customer>.CreateErrorResult("Could not find customer");
+				return EntityResult<CustomerDto>.CreateErrorResult("Could not find customer");
 			}
 
-			customer.Orders = customer.Orders
-				.Where(cutomer => cutomer.CreationDate >= DateTime.Now.AddMonths(-6))
+			var customerDto = new CustomerDto
+			{
+				Id = customer.Id,
+				Cpf = customer.Cpf,
+				BirthDate = customer.BirthDate,
+				CreationDate = customer.CreationDate,
+				Name = customer.Name,
+				Orders = customer.Orders.Where(cutomer => cutomer.CreationDate >= DateTime.Now.AddMonths(-6))
 				.Select(order =>
 				{
 					order.Customer = null;
 					order.Book.Orders = null;
 					return order;
 				})
-				.ToList();
+				.ToList()
+			};
 
-			return EntityResult<Customer>.CreateSuccessfulResult(customer);
+			return EntityResult<CustomerDto>.CreateSuccessfulResult(customerDto);
 		}
 	}
 }

@@ -37,7 +37,8 @@ namespace Infrastructure
 			}
 
 			optionsBuilder
-				.UseSqlServer(connectionString: _connectionString);
+				.UseSqlServer(connectionString: _connectionString)
+				.UseLazyLoadingProxies();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
