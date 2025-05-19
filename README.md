@@ -15,10 +15,10 @@ To do this, in your DbContext, it is necessary to create a parameterless constru
 `Add-Migration -Name [Migration Name] -StartupProject [Project in which the DbContext is contained]`
 
 ### How to apply a migration with Package Manager Console
-`Update-Migration -StartupProject [Project in which the DbContext is contained] -Connection "Connection String"`
+`Update-Database -StartupProject [Project in which the DbContext is contained] -Connection "Connection String"`
 
 ### How to revert database to specific migration with Package Manager Console
-`Update-Migration [Name of the migration you want to revert to] -StartupProject [Project in which the DbContext is contained] -Connection "Connection String"`
+`Update-Database [Name of the migration you want to revert to] -StartupProject [Project in which the DbContext is contained] -Connection "Connection String"`
 
 ## Infrastructure.Scaffold project
 In order to execute the scaffold action, there are three nuget packages that must be installed.
